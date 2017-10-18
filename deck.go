@@ -4,32 +4,27 @@ import (
 	"math/rand"
 )
 
-const (
-	HUMAN    = "Human"
-	WEREWOLF = "Werewolf"
-)
-
 type Deck struct {
-	cards    []string
+	roles    []Role
 	shuffled []int
 }
 
-func (d *Deck) add(card string) {
-	d.cards = append(d.cards, card)
+func (d *Deck) add(role Role) {
+	d.roles = append(d.roles, role)
 }
 
 func (d *Deck) shuffle() {
-	d.shuffled = rand.Perm(len(d.cards))
+	d.shuffled = rand.Perm(len(d.roles))
 }
 
 func (d *Deck) count() int {
-	return len(d.cards)
+	return len(d.roles)
 }
 
-func (d *Deck) get(i int) string {
-	return d.cards[d.shuffled[i]]
+func (d *Deck) get(i int) Role {
+	return d.roles[d.shuffled[i]]
 }
 
 func NewDeck() *Deck {
-	return &Deck{make([]string, 0), make([]int, 0)}
+	return &Deck{make([]Role, 0), make([]int, 0)}
 }

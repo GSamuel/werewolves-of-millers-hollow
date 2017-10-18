@@ -1,10 +1,9 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strconv"
+	"github.com/GSamuel/werewolvesmillershollow/events"
+	"github.com/GSamuel/werewolvesmillershollow/voting"
 )
 
 type Game struct {
@@ -12,18 +11,18 @@ type Game struct {
 }
 
 func (g *Game) run() {
+	g.startGame()
+
 	for !g.isOver() {
+
 		g.printPlayers()
-		fmt.Println("The night starts, Everyone goes to sleep.")
-		fmt.Println("The werewolves wake up and choose a victim.")
-		i, err := g.readInput()
 
-		if err != nil {
-			panic(err)
-		}
+		g.startNight()
 
-		if g.players[i].alive && g.players[i].alliance != WEREWOLF {
-			fmt.Println("Player ", i, " has died this night. It was a ", g.players[i].alliance)
+		i := g.startWerewolfVote()
+
+		if g.players[i].alive && g.players[i].Name() != WEREWOLF {
+			fmt.Println("Player ", i, " has died this night. It was a ", g.players[i].Name())
 			g.players[i].alive = false
 		} else {
 			fmt.Println("There are no victims this night.")
@@ -34,17 +33,12 @@ func (g *Game) run() {
 		if g.isOver() {
 			break
 		}
-		fmt.Println("Vote for a player to be executed.")
 
-		i, err = g.readInput()
-
-		if err != nil {
-			panic(err)
-		}
+		i = g.starDailyVote()
 
 		if g.players[i].alive {
 			g.players[i].alive = false
-			fmt.Println("Player ", i, " has died by public execution. It was a ", g.players[i].alliance)
+			fmt.Println("Player ", i, " has died by public execution. It was a ", g.players[i].Name())
 		}
 	}
 
@@ -55,12 +49,59 @@ func (g *Game) run() {
 	//wake werewolves
 	//werewolves vote on victim
 	//day
-	//announce werewolve victim
+	//announce werewolf victim
 	//check win conditions
 	//vote for player to be eliminated
 	//announce death of player
 	//check win conditions
 	//Repeat
+}
+
+func (g *Game) startGame() {
+	fmt.Println("The Game has started.")
+	event := events.GameStartedEvent{}
+	for i := 0; i < len(g.players); i++ {
+		if g.players[i].alive {
+			g.players[i].OnGameStarted(event)
+		}
+	}
+}
+
+func (g *Game) startNight() {
+	fmt.Println("The night starts, Everyone goes to sleep.")
+	event := events.NightStartedEvent{}
+	for i := 0; i < len(g.players); i++ {
+		if g.players[i].alive {
+			g.players[i].OnNightStarted(event)
+		}
+	}
+}
+
+func (g *Game) startWerewolfVote() int {
+
+	fmt.Println("The werewolves wake up and choose a victim.")
+	ballotBox := &voting.BallotBox{}
+	event := events.WerewolfVoteEvent{ballotBox}
+	for i := 0; i < len(g.players); i++ {
+		if g.players[i].alive {
+			g.players[i].OnWerewolfVote(event)
+		}
+	}
+
+	return ballotBox.Result()
+}
+
+func (g *Game) starDailyVote() int {
+	fmt.Println("Vote for a player to be executed.")
+	ballotBox := &voting.BallotBox{}
+	event := events.DailyVoteEvent{ballotBox}
+	for i := 0; i < len(g.players); i++ {
+		if g.players[i].alive {
+			g.players[i].OnDailyVote(event)
+		}
+	}
+
+	return ballotBox.Result()
 }
 
 func (g *Game) isOver() bool {
@@ -70,7 +111,7 @@ func (g *Game) isOver() bool {
 
 	for i := 0; i < len(g.players); i++ {
 		if g.players[i].alive {
-			if g.players[i].alliance == WEREWOLF {
+			if g.players[i].Name() == WEREWOLF {
 				stillWerewolves = true
 			} else {
 				stillHumans = true
@@ -85,15 +126,7 @@ func (g *Game) printPlayers() {
 	fmt.Println()
 	for i := 0; i < len(g.players); i++ {
 		if g.players[i].alive {
-			fmt.Println("Player ", i, " alliance:", g.players[i].alliance)
+			fmt.Println("Player ", i, " alliance:", g.players[i].Name())
 		}
 	}
-}
-
-func (g *Game) readInput() (int, error) {
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	text := scanner.Text()
-
-	return strconv.Atoi(text)
 }

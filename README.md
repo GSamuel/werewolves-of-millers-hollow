@@ -62,6 +62,8 @@ Contributions are welcome
 * Everytime deaths are anounced the role of the dead player may become public. (depending on the game mode/settings)
 * After the daily vote the night next night starts.
 * When all players left belong to the same team the game is over and the surviving team wins the game.
+* Who may and who may not vote?
+* Ballot box for gathering all votes and calculating the result
 
 
 ## Events
@@ -75,4 +77,14 @@ Contributions are welcome
 ## Possible Goals
 * Simulate the game so the narrater makes less mistakes
 * Remove the need for a narrater.
-* Make it possible to play this game online against people you don't know.
+* Make it possible to play this game online against people you do or don't know.
+
+
+## Architecture
+Roles have states. i.e. Witch has to know if she can still use her potions or not.
+Player should not have dependencies on specific roles. (Strategy pattern for roles?)
+Roles React to different events. Every role knows to which events to react.
+Roles should know when an event happens on their player or on an other player. (identity)
+Because roles react to different events maybe use template pattern? Are the events set in stone? else template pattern might not be a good idea.
+Roles can sometimes choose players. Do they need some way to access all players in the game?
+It is probably the players responsibility to choose other players. (In the real game players get asked by the narrator)
