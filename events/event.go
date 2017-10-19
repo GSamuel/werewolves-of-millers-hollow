@@ -18,10 +18,12 @@ type DailyVoteEvent struct {
 	*voting.BallotBox
 }
 
-type OnRevealedEvent struct {
+type PlayerDeadEvent struct {
+	id int
 }
 
-type OnDeadEvent struct {
+type PlayerRevealedEvent struct {
+	id int
 }
 
 func NewNightStartedEvent() NightStartedEvent {
@@ -38,4 +40,12 @@ func NewWerewolfVoteEvent() WerewolfVoteEvent {
 
 func NewDailyVoteEvent() DailyVoteEvent {
 	return DailyVoteEvent{voting.NewBallotBox()}
+}
+
+func NewPlayerDeadEvent(id int) PlayerDeadEvent {
+	return PlayerDeadEvent{id}
+}
+
+func NewPlayerRevealedEvent(id int) PlayerRevealedEvent {
+	return PlayerRevealedEvent{id}
 }

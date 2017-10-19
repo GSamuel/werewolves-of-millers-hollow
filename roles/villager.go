@@ -2,7 +2,7 @@ package roles
 
 //Basic Villager role
 type Villager struct {
-	BaseRole
+	*BaseRole
 }
 
 func (v *Villager) Name() string {

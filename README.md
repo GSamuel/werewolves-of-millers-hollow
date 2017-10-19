@@ -5,6 +5,9 @@ With this library I make it possible for you to simulate every Werwolves of Mill
 
 Contributions are welcome
 
+## Testing
+run `go test ./...` to test all test casese
+
 ## Some keywords that may or may not end up in library
 * Game
 * Room

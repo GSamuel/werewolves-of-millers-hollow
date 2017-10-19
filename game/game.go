@@ -21,9 +21,11 @@ func (g *Game) Run() {
 
 		i := g.startWerewolfVote()
 
-		if g.players[i].alive && g.players[i].Name() != roles.WEREWOLF {
-			fmt.Println("Player ", i, " has died this night. It was a ", g.players[i].Name())
-			g.players[i].alive = false
+		if g.players[i].Alive() && g.players[i].Name() != roles.WEREWOLF {
+			g.startPlayerDeath(i)
+			if !g.players[i].Alive() {
+				g.startPlayerRevealed(i)
+			}
 		} else {
 			fmt.Println("There are no victims this night.")
 		}
@@ -36,9 +38,11 @@ func (g *Game) Run() {
 
 		i = g.starDailyVote()
 
-		if g.players[i].alive {
-			g.players[i].alive = false
-			fmt.Println("Player ", i, " has died by public execution. It was a ", g.players[i].Name())
+		if g.players[i].Alive() {
+			g.startPlayerDeath(i)
+			if !g.players[i].Alive() {
+				g.startPlayerRevealed(i)
+			}
 		}
 	}
 
@@ -57,13 +61,28 @@ func (g *Game) Run() {
 	//Repeat
 }
 
+func (g *Game) startPlayerDeath(id int) {
+	g.players[id].SetAlive(false)
+	event := events.NewPlayerDeadEvent(id)
+	for i := 0; i < len(g.players); i++ {
+		g.players[i].OnPlayerDead(event)
+	}
+	//
+}
+
+func (g *Game) startPlayerRevealed(id int) {
+	event := events.NewPlayerRevealedEvent(id)
+	for i := 0; i < len(g.players); i++ {
+		g.players[i].OnPlayerRevealed(event)
+	}
+	fmt.Println("Player ", id, " has died. It was a ", g.players[id].Name())
+}
+
 func (g *Game) startGame() {
 	fmt.Println("The Game has started.")
 	event := events.NewGameStartedEvent()
 	for i := 0; i < len(g.players); i++ {
-		if g.players[i].alive {
-			g.players[i].OnGameStarted(event)
-		}
+		g.players[i].OnGameStarted(event)
 	}
 }
 
@@ -71,9 +90,7 @@ func (g *Game) startNight() {
 	fmt.Println("The night starts, Everyone goes to sleep.")
 	event := events.NewNightStartedEvent()
 	for i := 0; i < len(g.players); i++ {
-		if g.players[i].alive {
-			g.players[i].OnNightStarted(event)
-		}
+		g.players[i].OnNightStarted(event)
 	}
 }
 
@@ -82,9 +99,7 @@ func (g *Game) startWerewolfVote() int {
 	fmt.Println("The werewolves wake up and choose a victim.")
 	event := events.NewWerewolfVoteEvent()
 	for i := 0; i < len(g.players); i++ {
-		if g.players[i].alive {
-			g.players[i].OnWerewolfVote(event)
-		}
+		g.players[i].OnWerewolfVote(event)
 	}
 
 	return event.Result()
@@ -93,10 +108,9 @@ func (g *Game) startWerewolfVote() int {
 func (g *Game) starDailyVote() int {
 	fmt.Println("Vote for a player to be executed.")
 	event := events.NewDailyVoteEvent()
+
 	for i := 0; i < len(g.players); i++ {
-		if g.players[i].alive {
-			g.players[i].OnDailyVote(event)
-		}
+		g.players[i].OnDailyVote(event)
 	}
 
 	return event.Result()
@@ -108,7 +122,7 @@ func (g *Game) isOver() bool {
 	stillWerewolves := false
 
 	for i := 0; i < len(g.players); i++ {
-		if g.players[i].alive {
+		if g.players[i].Alive() {
 			if g.players[i].Name() == roles.WEREWOLF {
 				stillWerewolves = true
 			} else {
@@ -123,7 +137,7 @@ func (g *Game) isOver() bool {
 func (g *Game) printPlayers() {
 	fmt.Println()
 	for i := 0; i < len(g.players); i++ {
-		if g.players[i].alive {
+		if g.players[i].Alive() {
 			fmt.Println("Player ", i, " alliance:", g.players[i].Name())
 		}
 	}

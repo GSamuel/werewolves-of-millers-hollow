@@ -15,7 +15,7 @@ func (b *BallotBox) Count() int {
 }
 
 //Result gives the id that has the most votes
-//Currently not defined for tied votes.
+//Not complete yet. undefined behaviour for tied votes.
 func (b *BallotBox) Result() int {
 
 	m := make(map[int]float32)

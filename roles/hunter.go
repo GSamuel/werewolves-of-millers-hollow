@@ -1,7 +1,7 @@
 package roles
 
 type Hunter struct {
-	BaseRole
+	*BaseRole
 }
 
 func (h *Hunter) Name() string {

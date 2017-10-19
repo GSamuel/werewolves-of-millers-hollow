@@ -6,9 +6,8 @@ import (
 
 type Player struct {
 	roles.Role
-	alive bool
 }
 
 func NewPlayer(role roles.Role) *Player {
-	return &Player{role, true}
+	return &Player{role}
 }

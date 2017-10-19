@@ -22,18 +22,6 @@ func main() {
 	deck.Add(were)
 	deck.Shuffle()
 
-	players := make([]*game.Player, 0, deck.Count())
-
-	for i := 0; i < deck.Count(); i++ {
-		role, err := roles.New(deck.Get(i))
-
-		if err != nil {
-			panic(err)
-		}
-
-		players = append(players, game.NewPlayer(role))
-	}
-
-	game := game.NewGame(players)
-	game.Run()
+	g := game.New(deck)
+	g.Run()
 }

@@ -21,4 +21,6 @@ type Role interface {
 	OnNightStarted(events.NightStartedEvent)
 	OnWerewolfVote(events.WerewolfVoteEvent)
 	OnDailyVote(events.DailyVoteEvent)
+	OnPlayerDead(events.PlayerDeadEvent)
+	OnPlayerRevealed(events.PlayerRevealedEvent)
 }
