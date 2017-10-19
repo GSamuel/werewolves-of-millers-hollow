@@ -6,15 +6,11 @@ import (
 )
 
 type BaseRole struct {
-	playerId int
+	*State
 }
 
 func (b *BaseRole) Name() string {
 	return UNDEFINED
-}
-
-func (b *BaseRole) SetPlayerId(id int) {
-	b.playerId = id
 }
 
 func (b *BaseRole) OnNightStarted(e events.NightStartedEvent) {
