@@ -1,30 +1,30 @@
-package main
+package game
 
 import (
 	"math/rand"
 )
 
 type Deck struct {
-	roles    []Role
+	roles    []string
 	shuffled []int
 }
 
-func (d *Deck) add(role Role) {
+func (d *Deck) Add(role string) {
 	d.roles = append(d.roles, role)
 }
 
-func (d *Deck) shuffle() {
+func (d *Deck) Shuffle() {
 	d.shuffled = rand.Perm(len(d.roles))
 }
 
-func (d *Deck) count() int {
+func (d *Deck) Count() int {
 	return len(d.roles)
 }
 
-func (d *Deck) get(i int) Role {
+func (d *Deck) Get(i int) string {
 	return d.roles[d.shuffled[i]]
 }
 
 func NewDeck() *Deck {
-	return &Deck{make([]Role, 0), make([]int, 0)}
+	return &Deck{make([]string, 0), make([]int, 0)}
 }

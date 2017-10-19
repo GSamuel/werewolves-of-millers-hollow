@@ -17,3 +17,25 @@ type WerewolfVoteEvent struct {
 type DailyVoteEvent struct {
 	*voting.BallotBox
 }
+
+type OnRevealedEvent struct {
+}
+
+type OnDeadEvent struct {
+}
+
+func NewNightStartedEvent() NightStartedEvent {
+	return NightStartedEvent{}
+}
+
+func NewGameStartedEvent() GameStartedEvent {
+	return GameStartedEvent{}
+}
+
+func NewWerewolfVoteEvent() WerewolfVoteEvent {
+	return WerewolfVoteEvent{voting.NewBallotBox()}
+}
+
+func NewDailyVoteEvent() DailyVoteEvent {
+	return DailyVoteEvent{voting.NewBallotBox()}
+}

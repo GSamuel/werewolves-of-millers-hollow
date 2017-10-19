@@ -1,16 +1,16 @@
-package main
+package game
 
 import (
 	"fmt"
 	"github.com/GSamuel/werewolvesmillershollow/events"
-	"github.com/GSamuel/werewolvesmillershollow/voting"
+	"github.com/GSamuel/werewolvesmillershollow/roles"
 )
 
 type Game struct {
 	players []*Player
 }
 
-func (g *Game) run() {
+func (g *Game) Run() {
 	g.startGame()
 
 	for !g.isOver() {
@@ -21,7 +21,7 @@ func (g *Game) run() {
 
 		i := g.startWerewolfVote()
 
-		if g.players[i].alive && g.players[i].Name() != WEREWOLF {
+		if g.players[i].alive && g.players[i].Name() != roles.WEREWOLF {
 			fmt.Println("Player ", i, " has died this night. It was a ", g.players[i].Name())
 			g.players[i].alive = false
 		} else {
@@ -59,7 +59,7 @@ func (g *Game) run() {
 
 func (g *Game) startGame() {
 	fmt.Println("The Game has started.")
-	event := events.GameStartedEvent{}
+	event := events.NewGameStartedEvent()
 	for i := 0; i < len(g.players); i++ {
 		if g.players[i].alive {
 			g.players[i].OnGameStarted(event)
@@ -69,7 +69,7 @@ func (g *Game) startGame() {
 
 func (g *Game) startNight() {
 	fmt.Println("The night starts, Everyone goes to sleep.")
-	event := events.NightStartedEvent{}
+	event := events.NewNightStartedEvent()
 	for i := 0; i < len(g.players); i++ {
 		if g.players[i].alive {
 			g.players[i].OnNightStarted(event)
@@ -80,28 +80,26 @@ func (g *Game) startNight() {
 func (g *Game) startWerewolfVote() int {
 
 	fmt.Println("The werewolves wake up and choose a victim.")
-	ballotBox := &voting.BallotBox{}
-	event := events.WerewolfVoteEvent{ballotBox}
+	event := events.NewWerewolfVoteEvent()
 	for i := 0; i < len(g.players); i++ {
 		if g.players[i].alive {
 			g.players[i].OnWerewolfVote(event)
 		}
 	}
 
-	return ballotBox.Result()
+	return event.Result()
 }
 
 func (g *Game) starDailyVote() int {
 	fmt.Println("Vote for a player to be executed.")
-	ballotBox := &voting.BallotBox{}
-	event := events.DailyVoteEvent{ballotBox}
+	event := events.NewDailyVoteEvent()
 	for i := 0; i < len(g.players); i++ {
 		if g.players[i].alive {
 			g.players[i].OnDailyVote(event)
 		}
 	}
 
-	return ballotBox.Result()
+	return event.Result()
 }
 
 func (g *Game) isOver() bool {
@@ -111,7 +109,7 @@ func (g *Game) isOver() bool {
 
 	for i := 0; i < len(g.players); i++ {
 		if g.players[i].alive {
-			if g.players[i].Name() == WEREWOLF {
+			if g.players[i].Name() == roles.WEREWOLF {
 				stillWerewolves = true
 			} else {
 				stillHumans = true
@@ -129,4 +127,8 @@ func (g *Game) printPlayers() {
 			fmt.Println("Player ", i, " alliance:", g.players[i].Name())
 		}
 	}
+}
+
+func NewGame(players []*Player) *Game {
+	return &Game{players}
 }
