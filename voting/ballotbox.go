@@ -3,37 +3,37 @@ package voting
 import ()
 
 type BallotBox struct {
-	votes []Vote
+	votes map[int]int
+	count int
 }
 
-func (b *BallotBox) Vote(id int, weight float32) {
-	b.votes = append(b.votes, NewVote(id, weight))
+func (b *BallotBox) Vote(id, weight int) {
+	v := b.votes[id]
+	b.votes[id] = weight + v
+	b.count = b.count + 1
 }
 
 func (b *BallotBox) Count() int {
-	return len(b.votes)
+	return b.count
+}
+
+func (b BallotBox) Marjority() bool {
+	return false
 }
 
 //Result gives the id that has the most votes
 //Not complete yet. undefined behaviour for tied votes.
 func (b *BallotBox) Result() int {
 
-	m := make(map[int]float32)
-
-	for i := 0; i < len(b.votes); i++ {
-		id := b.votes[i].id
-		val := m[id]
-		m[id] = b.votes[i].weight + val
-	}
-
 	first := true
 	id := -1
-	value := float32(-1)
+	value := -1
 
-	for key, val := range m {
+	for key, val := range b.votes {
 		if first || val >= value {
 			id = key
 			value = val
+			first = false
 		}
 	}
 
@@ -41,5 +41,5 @@ func (b *BallotBox) Result() int {
 }
 
 func NewBallotBox() *BallotBox {
-	return &BallotBox{}
+	return &BallotBox{make(map[int]int), 0}
 }
