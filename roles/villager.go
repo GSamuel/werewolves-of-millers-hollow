@@ -1,6 +1,5 @@
 package roles
 
-//Basic Villager role
 type Villager struct {
 	*BaseRole
 }

@@ -6,7 +6,6 @@ import (
 	"github.com/GSamuel/werewolvesmillershollow/utils"
 )
 
-//Basic Werewolf role
 type Werewolf struct {
 	*BaseRole
 }
@@ -20,7 +19,17 @@ func (w *Werewolf) OnWerewolfVote(e events.WerewolfVoteEvent) {
 		return
 	}
 
-	fmt.Printf("Werewolf %v:", w.ID())
-	i := utils.ReadInput()
-	e.Vote(i, 1)
+	done := false
+
+	for !done {
+		fmt.Printf("Werewolf %v:", w.ID())
+		i := utils.ReadInput()
+		if i >= 0 && i < w.eventSystem.Count() {
+			if w.eventSystem.Role(i).Alive() && w.eventSystem.Role(i).Name() != WEREWOLF {
+				e.Vote(i, 1)
+				done = true
+			}
+		}
+	}
+
 }

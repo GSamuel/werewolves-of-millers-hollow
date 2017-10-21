@@ -17,5 +17,12 @@ func New(deck *Deck) *Game {
 		players = append(players, NewPlayer(role))
 	}
 
-	return NewGame(players)
+	group := &PlayerGroup{players}
+	eventSystem := roles.NewEventSystem(group)
+
+	for i := 0; i < group.Count(); i++ {
+		group.Player(i).SetEventSystem(eventSystem)
+	}
+
+	return NewGame(group, eventSystem)
 }

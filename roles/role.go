@@ -1,8 +1,6 @@
 package roles
 
-import (
-	"github.com/GSamuel/werewolvesmillershollow/events"
-)
+import ()
 
 const (
 	UNDEFINED = "Undefined"
@@ -17,5 +15,7 @@ type Role interface {
 	SetID(int)
 	Alive() bool
 	SetAlive(bool)
-	events.EventListener
+	SetEventSystem(*EventSystem)
+	Die()
+	EventListener
 }

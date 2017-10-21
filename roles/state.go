@@ -3,8 +3,9 @@ package roles
 import ()
 
 type State struct {
-	id    int
-	alive bool
+	id          int
+	alive       bool
+	eventSystem *EventSystem
 }
 
 func (s *State) ID() int {
@@ -23,6 +24,10 @@ func (s *State) SetAlive(alive bool) {
 	s.alive = alive
 }
 
+func (s *State) SetEventSystem(eventSystem *EventSystem) {
+	s.eventSystem = eventSystem
+}
+
 func NewState(id int) *State {
-	return &State{id, true}
+	return &State{id, true, nil}
 }
