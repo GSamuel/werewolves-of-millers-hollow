@@ -11,6 +11,7 @@ func main() {
 	vil := roles.VILLAGER
 	hun := roles.HUNTER
 	heal := roles.HEALER
+	elder := roles.VILLAGE_ELDER
 
 	deck := game.NewDeck()
 	deck.Add(vil)
@@ -22,6 +23,7 @@ func main() {
 	deck.Add(were)
 	deck.Add(were)
 	deck.Add(heal)
+	deck.Add(elder)
 	deck.Shuffle()
 
 	g := game.New(deck)
