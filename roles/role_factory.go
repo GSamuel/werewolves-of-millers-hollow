@@ -4,6 +4,15 @@ import (
 	"fmt"
 )
 
+const (
+	UNDEFINED     = "Undefined"
+	VILLAGER      = "Villager"
+	WEREWOLF      = "Werewolf"
+	HUNTER        = "Hunter"
+	HEALER        = "Healer"
+	VILLAGE_ELDER = "Village Elder"
+)
+
 func New(role string, id int) (Role, error) {
 
 	base := &BaseRole{NewState(id)}
