@@ -8,6 +8,6 @@ type DailyVoteEvent struct {
 	*voting.BallotBox
 }
 
-func NewDailyVoteEvent() DailyVoteEvent {
-	return DailyVoteEvent{voting.NewBallotBox()}
+func NewDailyVoteEvent() *DailyVoteEvent {
+	return &DailyVoteEvent{voting.NewBallotBox()}
 }

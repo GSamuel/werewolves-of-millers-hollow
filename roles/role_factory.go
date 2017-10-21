@@ -15,6 +15,8 @@ func New(role string, id int) (Role, error) {
 		return &Villager{base}, nil
 	case HUNTER:
 		return &Hunter{base}, nil
+	case HEALER:
+		return &Healer{base, -1}, nil
 	}
 	return nil, fmt.Errorf("Role %v does not exist in role factory", role)
 }

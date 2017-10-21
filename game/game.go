@@ -23,7 +23,7 @@ func (g *Game) Run() {
 		votes := g.startWerewolfVote()
 		if len(votes) == 1 {
 			id := votes[0]
-			g.Player(id).Die()
+			g.Player(id).Die(true)
 		}
 
 		g.printPlayers()
@@ -36,7 +36,7 @@ func (g *Game) Run() {
 
 		if len(votes) == 1 {
 			id := votes[0]
-			g.Player(id).Die()
+			g.Player(id).Die(false)
 		}
 	}
 
@@ -96,6 +96,7 @@ func (g *Game) printPlayers() {
 			fmt.Println("Player ", i, " alliance:", g.Player(i).Name())
 		}
 	}
+	fmt.Println()
 }
 
 func NewGame(group *PlayerGroup, eventSystem *roles.EventSystem) *Game {

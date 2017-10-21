@@ -14,7 +14,7 @@ func (h *Hunter) Name() string {
 	return HUNTER
 }
 
-func (h *Hunter) OnPlayerRevealed(e events.PlayerRevealedEvent) {
+func (h *Hunter) OnPlayerRevealed(e *events.PlayerRevealedEvent) {
 	if e.ID() != h.ID() {
 		return
 	}
@@ -25,7 +25,7 @@ func (h *Hunter) OnPlayerRevealed(e events.PlayerRevealedEvent) {
 		i := utils.ReadInput()
 		if i >= 0 && i < h.eventSystem.Count() {
 			if h.eventSystem.Role(i).Alive() {
-				h.eventSystem.Role(i).Die()
+				h.eventSystem.Role(i).Die(false)
 				done = true
 			}
 		}

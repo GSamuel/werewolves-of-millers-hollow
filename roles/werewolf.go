@@ -14,7 +14,7 @@ func (w *Werewolf) Name() string {
 	return WEREWOLF
 }
 
-func (w *Werewolf) OnWerewolfVote(e events.WerewolfVoteEvent) {
+func (w *Werewolf) OnWerewolfVote(e *events.WerewolfVoteEvent) {
 	if !w.Alive() {
 		return
 	}

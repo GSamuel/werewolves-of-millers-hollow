@@ -7,6 +7,7 @@ const (
 	VILLAGER  = "Villager"
 	WEREWOLF  = "Werewolf"
 	HUNTER    = "Hunter"
+	HEALER    = "Healer"
 )
 
 type Role interface {
@@ -16,6 +17,6 @@ type Role interface {
 	Alive() bool
 	SetAlive(bool)
 	SetEventSystem(*EventSystem)
-	Die()
+	Die(bool)
 	EventListener
 }

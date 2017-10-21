@@ -3,8 +3,9 @@ package events
 import ()
 
 type PlayerDeadEvent struct {
-	id        int
-	prevented bool
+	id         int
+	werewolves bool
+	prevented  bool
 }
 
 func (p *PlayerDeadEvent) ID() int {
@@ -19,6 +20,14 @@ func (p *PlayerDeadEvent) PreventDeath() {
 	p.prevented = true
 }
 
-func NewPlayerDeadEvent(id int) PlayerDeadEvent {
-	return PlayerDeadEvent{id, false}
+func (p *PlayerDeadEvent) WerewolfAttack() bool {
+	return p.werewolves
+}
+
+func (p *PlayerDeadEvent) SetWerewolfAttack(werewolves bool) {
+	p.werewolves = werewolves
+}
+
+func NewPlayerDeadEvent(id int) *PlayerDeadEvent {
+	return &PlayerDeadEvent{id, false, false}
 }

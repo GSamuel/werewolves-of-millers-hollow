@@ -8,6 +8,6 @@ type WerewolfVoteEvent struct {
 	*voting.BallotBox
 }
 
-func NewWerewolfVoteEvent() WerewolfVoteEvent {
-	return WerewolfVoteEvent{voting.NewBallotBox()}
+func NewWerewolfVoteEvent() *WerewolfVoteEvent {
+	return &WerewolfVoteEvent{voting.NewBallotBox()}
 }

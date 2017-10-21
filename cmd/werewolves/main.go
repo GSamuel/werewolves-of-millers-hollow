@@ -10,6 +10,7 @@ func main() {
 	were := roles.WEREWOLF
 	vil := roles.VILLAGER
 	hun := roles.HUNTER
+	heal := roles.HEALER
 
 	deck := game.NewDeck()
 	deck.Add(vil)
@@ -20,6 +21,7 @@ func main() {
 	deck.Add(vil)
 	deck.Add(were)
 	deck.Add(were)
+	deck.Add(heal)
 	deck.Shuffle()
 
 	g := game.New(deck)

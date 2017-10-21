@@ -10,6 +10,6 @@ func (p *PlayerRevealedEvent) ID() int {
 	return p.id
 }
 
-func NewPlayerRevealedEvent(id int) PlayerRevealedEvent {
-	return PlayerRevealedEvent{id}
+func NewPlayerRevealedEvent(id int) *PlayerRevealedEvent {
+	return &PlayerRevealedEvent{id}
 }

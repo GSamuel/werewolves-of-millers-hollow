@@ -5,6 +5,6 @@ import ()
 type GameStartedEvent struct {
 }
 
-func NewGameStartedEvent() GameStartedEvent {
-	return GameStartedEvent{}
+func NewGameStartedEvent() *GameStartedEvent {
+	return &GameStartedEvent{}
 }
