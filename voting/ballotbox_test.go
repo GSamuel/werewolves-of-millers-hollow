@@ -22,44 +22,18 @@ func TestBallotBoxCount(t *testing.T) {
 	}
 }
 
-func TestBallotBoxMajority(t *testing.T) {
-	testCases := []struct {
-		votes  []int
-		result bool
-	}{
-		{[]int{}, false},
-		{[]int{0, 0}, false},
-		{[]int{1, 1, 2}, true},
-		{[]int{1, 2, 2}, true},
-		{[]int{1, 1, 2, 2, 0}, false},
-		{[]int{1, 2, 2, 0}, true},
-	}
-
-	for _, tc := range testCases {
-		t.Run(fmt.Sprintf("%v -> %v", tc.votes, tc.result), func(t *testing.T) {
-			box := NewBallotBox()
-
-			for i := 0; i < len(tc.votes); i++ {
-				box.Vote(tc.votes[i], 1)
-			}
-
-			maj := box.Marjority()
-			if maj != tc.result {
-				t.Errorf("got %v; want %v", maj, tc.result)
-			}
-
-		})
-	}
-}
-
 func TestBallotBoxResult(t *testing.T) {
 	testCases := []struct {
 		votes  []int
-		result int
+		result []int
 	}{
-		{[]int{1, 1, 2}, 1},
-		{[]int{1, 2, 2}, 2},
-		//what should happen when there is no majority????
+		{[]int{}, []int{}},
+		{[]int{0}, []int{0}},
+		{[]int{1, 1, 2}, []int{1}},
+		{[]int{1, 2, 2}, []int{2}},
+		{[]int{1, 1, 2, 2}, []int{1, 2}},
+		{[]int{0, 1, 1, 2, 2}, []int{1, 2}},
+		{[]int{2, 2, 1, 1, 7, 4, 6, 9, 0}, []int{1, 2}},
 	}
 
 	for _, tc := range testCases {
@@ -70,9 +44,15 @@ func TestBallotBoxResult(t *testing.T) {
 				box.Vote(tc.votes[i], 1)
 			}
 
-			vote := box.Result()
-			if vote != tc.result {
-				t.Errorf("got %v; want %v", vote, tc.result)
+			result := box.Result()
+			if len(result) != len(tc.result) {
+				t.Errorf("got %v; want %v", result, tc.result)
+			}
+
+			for i := 0; i < len(result); i++ {
+				if result[i] != tc.result[i] {
+					t.Errorf("got %v; want %v", result, tc.result)
+				}
 			}
 
 		})

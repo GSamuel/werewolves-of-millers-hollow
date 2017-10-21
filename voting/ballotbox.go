@@ -1,6 +1,8 @@
 package voting
 
-import ()
+import (
+	"sort"
+)
 
 type BallotBox struct {
 	votes map[int]int
@@ -17,27 +19,33 @@ func (b *BallotBox) Count() int {
 	return b.count
 }
 
-func (b BallotBox) Marjority() bool {
-	return false
-}
-
 //Result gives the id that has the most votes
 //Not complete yet. undefined behaviour for tied votes.
-func (b *BallotBox) Result() int {
+func (b *BallotBox) Result() []int {
 
-	first := true
-	id := -1
+	result := make([]int, 0)
+
+	if len(b.votes) == 0 {
+		return result
+	}
+
 	value := -1
 
-	for key, val := range b.votes {
-		if first || val >= value {
-			id = key
+	for _, val := range b.votes {
+		if val > value {
 			value = val
-			first = false
 		}
 	}
 
-	return id
+	for id, val := range b.votes {
+		if val == value {
+			result = append(result, id)
+		}
+	}
+
+	sort.Ints(result)
+
+	return result
 }
 
 func NewBallotBox() *BallotBox {
