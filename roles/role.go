@@ -17,10 +17,5 @@ type Role interface {
 	SetID(int)
 	Alive() bool
 	SetAlive(bool)
-	OnGameStarted(events.GameStartedEvent)
-	OnNightStarted(events.NightStartedEvent)
-	OnWerewolfVote(events.WerewolfVoteEvent)
-	OnDailyVote(events.DailyVoteEvent)
-	OnPlayerDead(events.PlayerDeadEvent)
-	OnPlayerRevealed(events.PlayerRevealedEvent)
+	events.EventListener
 }
