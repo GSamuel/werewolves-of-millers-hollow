@@ -1,4 +1,4 @@
-package game
+package deck
 
 import (
 	"math/rand"
@@ -25,6 +25,6 @@ func (d *Deck) Get(i int) string {
 	return d.roles[d.shuffled[i]]
 }
 
-func NewDeck() *Deck {
+func New() *Deck {
 	return &Deck{make([]string, 0), make([]int, 0)}
 }

@@ -11,6 +11,7 @@ const (
 	HUNTER        = "Hunter"
 	HEALER        = "Healer"
 	VILLAGE_ELDER = "Village Elder"
+	WITCH         = "Witch"
 )
 
 func New(role string, id int) (Role, error) {
@@ -28,6 +29,8 @@ func New(role string, id int) (Role, error) {
 		return &Healer{base, -1}, nil
 	case VILLAGE_ELDER:
 		return &VillageElder{base, true}, nil
+	case WITCH:
+		return &Witch{base, true, true}, nil
 	}
 	return nil, fmt.Errorf("Role %v does not exist in role factory", role)
 }

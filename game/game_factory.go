@@ -1,10 +1,11 @@
 package game
 
 import (
+	"github.com/GSamuel/werewolvesmillershollow/deck"
 	"github.com/GSamuel/werewolvesmillershollow/roles"
 )
 
-func New(deck *Deck) *Game {
+func New(deck *deck.Deck) *Game {
 	players := make([]*Player, 0, deck.Count())
 
 	for i := 0; i < deck.Count(); i++ {

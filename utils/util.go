@@ -23,3 +23,10 @@ func ReadInput() int {
 
 	return n
 }
+
+func ReadYesNo() bool {
+	fmt.Printf("(Y)es or (N)o:")
+	scanner.Scan()
+	text := scanner.Text()
+	return (text == "Y" || text == "y")
+}
