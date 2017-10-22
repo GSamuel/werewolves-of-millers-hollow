@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/GSamuel/werewolvesmillershollow/deck"
 	"github.com/GSamuel/werewolvesmillershollow/game"
 	"github.com/GSamuel/werewolvesmillershollow/roles"
 )
@@ -12,8 +13,9 @@ func main() {
 	hun := roles.HUNTER
 	heal := roles.HEALER
 	elder := roles.VILLAGE_ELDER
+	witch := roles.WITCH
 
-	deck := game.NewDeck()
+	deck := deck.New()
 	deck.Add(vil)
 	deck.Add(vil)
 	deck.Add(vil)
@@ -22,8 +24,11 @@ func main() {
 	deck.Add(vil)
 	deck.Add(were)
 	deck.Add(were)
+	deck.Add(were)
+	deck.Add(were)
 	deck.Add(heal)
 	deck.Add(elder)
+	deck.Add(witch)
 	deck.Shuffle()
 
 	g := game.New(deck)
