@@ -1,9 +1,16 @@
 # Werewolves of Millers Hollow
 
 Welcome to the Werewolves of Millers Hollow project.
-With this library I make it possible for you to simulate every Werwolves of Millers Hollow game.
+This library removes the burden and complexity of simulating the Werwolves of Millers Hollow game.
 
-Contributions are welcome
+## How can you help?
+* Come up with new roles for Werewolves of Millers hollow.
+* Implement new roles
+* Create issues for bugs and suggestions.
+* Write tests to make the code of this project more reliable
+* Write documentation
+* Fix typos, bugs etc.
+* Use this project and give feedback.
 
 ## Testing
 run `go test ./...` to test all test casese
@@ -77,7 +84,7 @@ run `go test ./...` to test all test casese
 * a player fell in love (cupid)
 
 
-## Possible Goals
+## Possible Goals for projects using this library.
 * Simulate the game so the narrater makes less mistakes
 * Remove the need for a narrater.
 * Make it possible to play this game online against people you do or don't know.
