@@ -18,6 +18,10 @@ func (w *Witch) Name() string {
 
 func (w *Witch) OnPlayerDead(e *events.PlayerDeadEvent) {
 
+	if !w.Alive() && e.ID() != w.ID() {
+		return
+	}
+
 	if !e.WerewolfAttack() {
 		return
 	}

@@ -16,6 +16,10 @@ func (h *Healer) Name() string {
 }
 
 func (h *Healer) OnNightStarted(e *events.NightStartedEvent) {
+	if !h.Alive() {
+		return
+	}
+
 	done := false
 
 	for !done {

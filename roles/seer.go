@@ -15,6 +15,11 @@ func (s *Seer) Name() string {
 }
 
 func (s *Seer) OnNightStarted(e *events.NightStartedEvent) {
+
+	if !s.Alive() {
+		return
+	}
+
 	done := false
 	for !done {
 		fmt.Printf("Seer %v:", s.ID())

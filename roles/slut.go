@@ -16,6 +16,11 @@ func (s *Slut) Name() string {
 }
 
 func (s *Slut) OnNightStarted(e *events.NightStartedEvent) {
+
+	if !s.Alive() {
+		return
+	}
+
 	done := false
 	for !done {
 		fmt.Printf("Slut %v:", s.ID())
