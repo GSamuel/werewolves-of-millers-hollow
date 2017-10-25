@@ -15,6 +15,7 @@ func main() {
 	//elder := roles.VILLAGE_ELDER
 	witch := roles.WITCH
 	cupid := roles.CUPID
+	seer := roles.SEER
 
 	deck := deck.New()
 	deck.Add(vil)
@@ -24,6 +25,7 @@ func main() {
 	deck.Add(heal)
 	deck.Add(witch)
 	deck.Add(cupid)
+	deck.Add(seer)
 	deck.Shuffle()
 
 	g := game.New(deck)
