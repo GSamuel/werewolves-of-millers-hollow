@@ -13,6 +13,8 @@ const (
 	VILLAGE_ELDER = "Village Elder"
 	WITCH         = "Witch"
 	CUPID         = "Cupid"
+	SEER          = "Seer"
+	SLUT          = "Slut"
 )
 
 func New(role string, id int) (Role, error) {
@@ -34,6 +36,10 @@ func New(role string, id int) (Role, error) {
 		return &Witch{base, true, true}, nil
 	case CUPID:
 		return &Cupid{base, -1, -1}, nil
+	case SEER:
+		return &Seer{base}, nil
+	case SLUT:
+		return &Slut{base, -1}, nil
 	}
 	return nil, fmt.Errorf("Role %v does not exist in role factory", role)
 }

@@ -16,6 +16,7 @@ func main() {
 	witch := roles.WITCH
 	cupid := roles.CUPID
 	seer := roles.SEER
+	slut := roles.SLUT
 
 	deck := deck.New()
 	deck.Add(vil)
@@ -26,6 +27,7 @@ func main() {
 	deck.Add(witch)
 	deck.Add(cupid)
 	deck.Add(seer)
+	deck.Add(slut)
 	deck.Shuffle()
 
 	g := game.New(deck)
