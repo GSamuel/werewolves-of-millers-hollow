@@ -3,7 +3,7 @@ package roles
 import (
 	"fmt"
 	"github.com/GSamuel/werewolvesmillershollow/events"
-	"github.com/GSamuel/werewolvesmillershollow/utils"
+	"github.com/GSamuel/werewolvesmillershollow/input"
 )
 
 type BaseRole struct {
@@ -51,6 +51,6 @@ func (b *BaseRole) OnDailyVote(e *events.DailyVoteEvent) {
 	}
 
 	fmt.Printf("Player %v:", b.ID())
-	i := utils.ReadInput()
+	i, _ := input.ReadInput()
 	e.Vote(i, 1)
 }

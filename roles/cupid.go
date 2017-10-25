@@ -3,7 +3,7 @@ package roles
 import (
 	"fmt"
 	"github.com/GSamuel/werewolvesmillershollow/events"
-	"github.com/GSamuel/werewolvesmillershollow/utils"
+	"github.com/GSamuel/werewolvesmillershollow/input"
 )
 
 type Cupid struct {
@@ -21,7 +21,7 @@ func (c *Cupid) OnGameStarted(e *events.GameStartedEvent) {
 
 	for !done {
 		fmt.Printf("Cupid %v, lover 1:", c.ID())
-		i := utils.ReadInput()
+		i, _ := input.ReadInput()
 		if i >= 0 && i < c.eventSystem.Count() {
 			if c.eventSystem.Role(i).Alive() {
 				c.lover1 = i
@@ -34,7 +34,7 @@ func (c *Cupid) OnGameStarted(e *events.GameStartedEvent) {
 
 	for !done {
 		fmt.Printf("Cupid %v, lover 2:", c.ID())
-		i := utils.ReadInput()
+		i, _ := input.ReadInput()
 		if i >= 0 && i < c.eventSystem.Count() {
 			if c.eventSystem.Role(i).Alive() && i != c.lover1 {
 				c.lover2 = i

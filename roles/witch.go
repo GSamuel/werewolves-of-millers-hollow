@@ -3,7 +3,7 @@ package roles
 import (
 	"fmt"
 	"github.com/GSamuel/werewolvesmillershollow/events"
-	"github.com/GSamuel/werewolvesmillershollow/utils"
+	"github.com/GSamuel/werewolvesmillershollow/input"
 )
 
 type Witch struct {
@@ -28,7 +28,7 @@ func (w *Witch) OnPlayerDead(e *events.PlayerDeadEvent) {
 
 	if w.potionOfLife {
 		fmt.Printf("Witch %v: safe %v with life potion? ", w.ID(), e.ID())
-		revive := utils.ReadYesNo()
+		revive := input.ReadYesNo()
 		if revive {
 			e.PreventDeath()
 			w.potionOfLife = false
@@ -41,7 +41,7 @@ func (w *Witch) OnPlayerDead(e *events.PlayerDeadEvent) {
 	}
 
 	fmt.Printf("Witch %v: want to use poison?", w.ID())
-	useIt := utils.ReadYesNo()
+	useIt := input.ReadYesNo()
 	if !useIt {
 		return
 	}
@@ -49,7 +49,7 @@ func (w *Witch) OnPlayerDead(e *events.PlayerDeadEvent) {
 	done := false
 	for !done {
 		fmt.Printf("Witch %v:", w.ID())
-		i := utils.ReadInput()
+		i, _ := input.ReadInput()
 		if i >= 0 && i < w.eventSystem.Count() {
 			if w.eventSystem.Role(i).Alive() {
 				w.eventSystem.Role(i).Die(false)

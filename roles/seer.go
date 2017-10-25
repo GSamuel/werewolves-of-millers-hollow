@@ -3,7 +3,7 @@ package roles
 import (
 	"fmt"
 	"github.com/GSamuel/werewolvesmillershollow/events"
-	"github.com/GSamuel/werewolvesmillershollow/utils"
+	"github.com/GSamuel/werewolvesmillershollow/input"
 )
 
 type Seer struct {
@@ -23,7 +23,7 @@ func (s *Seer) OnNightStarted(e *events.NightStartedEvent) {
 	done := false
 	for !done {
 		fmt.Printf("Seer %v:", s.ID())
-		i := utils.ReadInput()
+		i, _ := input.ReadInput()
 		if i >= 0 && i < s.eventSystem.Count() {
 			if s.eventSystem.Role(i).Alive() {
 				fmt.Printf("Player %v is a %v\n", i, s.eventSystem.Role(i).Name())

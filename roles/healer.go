@@ -3,7 +3,7 @@ package roles
 import (
 	"fmt"
 	"github.com/GSamuel/werewolvesmillershollow/events"
-	"github.com/GSamuel/werewolvesmillershollow/utils"
+	"github.com/GSamuel/werewolvesmillershollow/input"
 )
 
 type Healer struct {
@@ -24,7 +24,7 @@ func (h *Healer) OnNightStarted(e *events.NightStartedEvent) {
 
 	for !done {
 		fmt.Printf("Healer %v:", h.ID())
-		i := utils.ReadInput()
+		i, _ := input.ReadInput()
 		if i >= 0 && i < h.eventSystem.Count() {
 			if h.eventSystem.Role(i).Alive() && i != h.target {
 				h.target = i

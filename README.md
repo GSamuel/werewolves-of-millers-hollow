@@ -98,3 +98,10 @@ Roles should know when an event happens on their player or on an other player. (
 Because roles react to different events maybe use template pattern? Are the events set in stone? else template pattern might not be a good idea.
 Roles can sometimes choose players. Do they need some way to access all players in the game?
 It is probably the players responsibility to choose other players. (In the real game players get asked by the narrator)
+
+## Trying to come up with a better architecture.
+deck no internal dependencies
+events dependency on voting. Is this desirable?
+game depencies on, deck, events and roles
+voting no internal dependencies
+roles dependencies on events and input. (input dependency is bad)

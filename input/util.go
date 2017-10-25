@@ -1,4 +1,4 @@
-package utils
+package input
 
 import (
 	"bufio"
@@ -9,19 +9,10 @@ import (
 
 var scanner = bufio.NewScanner(os.Stdin)
 
-func ReadInput() int {
+func ReadInput() (int, error) {
 	scanner.Scan()
 	text := scanner.Text()
-	n, err := strconv.Atoi(text)
-
-	for err != nil {
-		fmt.Println(err.Error())
-		scanner.Scan()
-		text = scanner.Text()
-		n, err = strconv.Atoi(text)
-	}
-
-	return n
+	return strconv.Atoi(text)
 }
 
 func ReadYesNo() bool {

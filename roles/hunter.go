@@ -3,7 +3,7 @@ package roles
 import (
 	"fmt"
 	"github.com/GSamuel/werewolvesmillershollow/events"
-	"github.com/GSamuel/werewolvesmillershollow/utils"
+	"github.com/GSamuel/werewolvesmillershollow/input"
 )
 
 type Hunter struct {
@@ -22,7 +22,7 @@ func (h *Hunter) OnPlayerRevealed(e *events.PlayerRevealedEvent) {
 	done := false
 	for !done {
 		fmt.Printf("Hunter %v:", h.ID())
-		i := utils.ReadInput()
+		i, _ := input.ReadInput()
 		if i >= 0 && i < h.eventSystem.Count() {
 			if h.eventSystem.Role(i).Alive() {
 				h.eventSystem.Role(i).Die(false)

@@ -3,7 +3,7 @@ package roles
 import (
 	"fmt"
 	"github.com/GSamuel/werewolvesmillershollow/events"
-	"github.com/GSamuel/werewolvesmillershollow/utils"
+	"github.com/GSamuel/werewolvesmillershollow/input"
 )
 
 type Slut struct {
@@ -24,7 +24,7 @@ func (s *Slut) OnNightStarted(e *events.NightStartedEvent) {
 	done := false
 	for !done {
 		fmt.Printf("Slut %v:", s.ID())
-		i := utils.ReadInput()
+		i, _ := input.ReadInput()
 		if i >= 0 && i < s.eventSystem.Count() {
 			if s.eventSystem.Role(i).Alive() && i != s.target && i != s.ID() {
 				s.target = i

@@ -3,7 +3,7 @@ package roles
 import (
 	"fmt"
 	"github.com/GSamuel/werewolvesmillershollow/events"
-	"github.com/GSamuel/werewolvesmillershollow/utils"
+	"github.com/GSamuel/werewolvesmillershollow/input"
 )
 
 type Werewolf struct {
@@ -23,7 +23,7 @@ func (w *Werewolf) OnWerewolfVote(e *events.WerewolfVoteEvent) {
 
 	for !done {
 		fmt.Printf("Werewolf %v:", w.ID())
-		i := utils.ReadInput()
+		i, _ := input.ReadInput()
 		if i >= 0 && i < w.eventSystem.Count() {
 			if w.eventSystem.Role(i).Alive() && w.eventSystem.Role(i).Name() != WEREWOLF {
 				e.Vote(i, 1)
