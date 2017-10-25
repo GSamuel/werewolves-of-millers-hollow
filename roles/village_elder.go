@@ -14,7 +14,7 @@ func (v *VillageElder) Name() string {
 }
 
 func (v *VillageElder) OnPlayerDead(e *events.PlayerDeadEvent) {
-	if v.extraLife && e.ID() == v.ID() {
+	if v.extraLife && e.ID() == v.ID() && e.WerewolfAttack() {
 		v.extraLife = false
 		e.PreventDeath()
 	}

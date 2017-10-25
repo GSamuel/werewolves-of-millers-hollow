@@ -12,11 +12,11 @@ type Game struct {
 }
 
 func (g *Game) Run() {
+
+	g.printPlayers()
 	g.startGame()
 
 	for !g.isOver() {
-
-		g.printPlayers()
 
 		g.startNight()
 
@@ -38,9 +38,10 @@ func (g *Game) Run() {
 			id := votes[0]
 			g.Player(id).Die(false)
 		}
+
+		g.printPlayers()
 	}
 
-	g.printPlayers()
 	fmt.Println("The game is over")
 }
 

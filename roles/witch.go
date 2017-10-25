@@ -23,12 +23,12 @@ func (w *Witch) OnPlayerDead(e *events.PlayerDeadEvent) {
 	}
 
 	if w.potionOfLife {
-		e.PreventDeath()
 		fmt.Printf("Witch %v: safe %v with life potion? ", w.ID(), e.ID())
 		revive := utils.ReadYesNo()
 		if revive {
 			e.PreventDeath()
 			w.potionOfLife = false
+			fmt.Println("death prevented by witch")
 		}
 	}
 
