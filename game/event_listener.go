@@ -5,10 +5,10 @@ import (
 )
 
 type EventListener interface {
-	OnGameStarted(*events.GameStartedEvent)
-	OnNightStarted(*events.NightStartedEvent)
-	OnWerewolfVote(*events.WerewolfVoteEvent)
-	OnDailyVote(*events.DailyVoteEvent)
-	OnPlayerDead(*events.PlayerDeadEvent)
-	OnPlayerRevealed(*events.PlayerRevealedEvent)
+	OnGameStarted(*Game, *events.GameStartedEvent)
+	OnNightStarted(*Game, *events.NightStartedEvent)
+	OnWerewolfVote(*Game, *events.WerewolfVoteEvent)
+	OnDailyVote(*Game, *events.DailyVoteEvent)
+	OnPlayerDead(*Game, *events.PlayerDeadEvent)
+	OnPlayerRevealed(*Game, *events.PlayerRevealedEvent)
 }

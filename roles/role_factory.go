@@ -24,10 +24,13 @@ type RoleFactory struct {
 func (r RoleFactory) New(role string, id int) (game.Role, error) {
 
 	base := &BaseRole{NewState(id)}
+	var result game.Role
 
 	switch role {
 	case WEREWOLF:
-		return &Werewolf{base}, nil
+		result = &Werewolf{base}
+		result.SetAlliance(game.ALLIANCE_EVIL)
+		return result, nil
 	case VILLAGER:
 		return &Villager{base}, nil
 	case HUNTER:
