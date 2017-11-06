@@ -1,13 +1,11 @@
 package game
 
-import (
-	"github.com/GSamuel/werewolvesmillershollow/roles"
-)
+import ()
 
 type Player struct {
-	roles.Role
+	Role
 }
 
-func NewPlayer(role roles.Role) *Player {
+func NewPlayer(role Role) *Player {
 	return &Player{role}
 }

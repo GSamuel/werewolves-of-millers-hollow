@@ -1,8 +1,6 @@
 package game
 
-import (
-	"github.com/GSamuel/werewolvesmillershollow/roles"
-)
+import ()
 
 type PlayerGroup struct {
 	players []*Player
@@ -12,7 +10,7 @@ func (p *PlayerGroup) Count() int {
 	return len(p.players)
 }
 
-func (p *PlayerGroup) Role(id int) roles.Role {
+func (p *PlayerGroup) Role(id int) Role {
 	return p.players[id]
 }
 

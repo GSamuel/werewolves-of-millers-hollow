@@ -2,6 +2,7 @@ package roles
 
 import (
 	"fmt"
+	"github.com/GSamuel/werewolvesmillershollow/game"
 )
 
 const (
@@ -17,7 +18,10 @@ const (
 	SLUT          = "Slut"
 )
 
-func New(role string, id int) (Role, error) {
+type RoleFactory struct {
+}
+
+func (r RoleFactory) New(role string, id int) (game.Role, error) {
 
 	base := &BaseRole{NewState(id)}
 
@@ -42,4 +46,8 @@ func New(role string, id int) (Role, error) {
 		return &Slut{base, -1}, nil
 	}
 	return nil, fmt.Errorf("Role %v does not exist in role factory", role)
+}
+
+func NewFactory() RoleFactory {
+	return RoleFactory{}
 }

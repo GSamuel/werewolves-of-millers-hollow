@@ -1,33 +1,35 @@
 package roles
 
-import ()
+import (
+	"github.com/GSamuel/werewolvesmillershollow/game"
+)
 
-type State struct {
+type state struct {
 	id          int
 	alive       bool
-	eventSystem *EventSystem
+	eventSystem *game.EventSystem
 }
 
-func (s *State) ID() int {
+func (s *state) ID() int {
 	return s.id
 }
 
-func (s *State) SetID(id int) {
+func (s *state) SetID(id int) {
 	s.id = id
 }
 
-func (s *State) Alive() bool {
+func (s *state) Alive() bool {
 	return s.alive
 }
 
-func (s *State) SetAlive(alive bool) {
+func (s *state) SetAlive(alive bool) {
 	s.alive = alive
 }
 
-func (s *State) SetEventSystem(eventSystem *EventSystem) {
+func (s *state) SetEventSystem(eventSystem *game.EventSystem) {
 	s.eventSystem = eventSystem
 }
 
-func NewState(id int) *State {
-	return &State{id, true, nil}
+func NewState(id int) *state {
+	return &state{id, true, nil}
 }

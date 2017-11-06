@@ -7,7 +7,7 @@ import (
 )
 
 type BaseRole struct {
-	*State
+	*state
 }
 
 func (b *BaseRole) Name() string {

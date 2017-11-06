@@ -3,12 +3,11 @@ package game
 import (
 	"fmt"
 	"github.com/GSamuel/werewolvesmillershollow/events"
-	"github.com/GSamuel/werewolvesmillershollow/roles"
 )
 
 type Game struct {
 	*PlayerGroup
-	*roles.EventSystem
+	*EventSystem
 }
 
 func (g *Game) Run() {
@@ -79,7 +78,7 @@ func (g *Game) isOver() bool {
 
 	for i := 0; i < g.Count(); i++ {
 		if g.Player(i).Alive() {
-			if g.Player(i).Name() == roles.WEREWOLF {
+			if g.Player(i).Name() == "Werewolf" { //TODO: Wincondition check should be the responsible for the roles.
 				stillWerewolves = true
 			} else {
 				stillHumans = true
@@ -100,6 +99,6 @@ func (g *Game) printPlayers() {
 	fmt.Println()
 }
 
-func NewGame(group *PlayerGroup, eventSystem *roles.EventSystem) *Game {
+func NewGame(group *PlayerGroup, eventSystem *EventSystem) *Game {
 	return &Game{group, eventSystem}
 }

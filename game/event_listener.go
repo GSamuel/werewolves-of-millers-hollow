@@ -1,4 +1,4 @@
-package roles
+package game
 
 import (
 	"github.com/GSamuel/werewolvesmillershollow/events"

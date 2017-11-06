@@ -2,14 +2,17 @@ package game
 
 import (
 	"github.com/GSamuel/werewolvesmillershollow/deck"
-	"github.com/GSamuel/werewolvesmillershollow/roles"
 )
 
-func New(deck *deck.Deck) *Game {
+type RoleFactory interface {
+	New(role string, id int) (Role, error)
+}
+
+func New(deck *deck.Deck, roleFactory RoleFactory) *Game {
 	players := make([]*Player, 0, deck.Count())
 
 	for i := 0; i < deck.Count(); i++ {
-		role, err := roles.New(deck.Get(i), i)
+		role, err := roleFactory.New(deck.Get(i), i)
 
 		if err != nil {
 			panic(err)
@@ -19,7 +22,7 @@ func New(deck *deck.Deck) *Game {
 	}
 
 	group := &PlayerGroup{players}
-	eventSystem := roles.NewEventSystem(group)
+	eventSystem := NewEventSystem(group)
 
 	for i := 0; i < group.Count(); i++ {
 		group.Player(i).SetEventSystem(eventSystem)

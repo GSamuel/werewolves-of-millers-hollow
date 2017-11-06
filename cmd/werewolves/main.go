@@ -31,7 +31,7 @@ func main() {
 	deck.Add(slut)
 	deck.Shuffle()
 
-	g := game.New(deck)
+	g := game.New(deck, roles.NewFactory())
 	g.Run()
 	//input.New(g.Group)
 	//input.Read()
