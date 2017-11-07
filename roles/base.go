@@ -54,5 +54,9 @@ func (b *BaseRole) OnDailyVote(g *game.Game, e *events.DailyVoteEvent) {
 
 	p.Write(fmt.Sprintf("Player %v:", b.ID()))
 
-	e.Vote(p.ReadInt(), 1)
+	vote := p.ReadInt(func(i int) bool {
+		return Alive(g, i) && NotEqual(g, i, p.ID())
+	})
+
+	e.Vote(vote, 1)
 }

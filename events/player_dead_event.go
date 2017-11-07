@@ -1,7 +1,5 @@
 package events
 
-import ()
-
 type PlayerDeadEvent struct {
 	id         int
 	werewolves bool

@@ -21,16 +21,10 @@ func (h *Hunter) OnPlayerRevealed(g *game.Game, e *events.PlayerRevealedEvent) {
 
 	p := g.Player(h.ID())
 
-	done := false
-	for !done {
-		fmt.Printf("Hunter %v:", h.ID())
-		i := p.ReadInt()
-		if i >= 0 && i < g.Count() {
-			if g.Player(i).Alive() {
-				g.Player(i).Die(g, false)
-				done = true
-			}
-		}
-	}
+	fmt.Printf("Hunter %v:", h.ID())
+	i := p.ReadInt(func(i int) bool {
+		return Alive(g, i) && NotEqual(g, i, p.ID())
+	})
+	g.Player(i).Die(g, false)
 
 }

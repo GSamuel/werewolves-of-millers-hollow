@@ -19,13 +19,15 @@ func (c *Console) ReadBool() bool {
 	return (text == "Y" || text == "y")
 }
 
-func (c *Console) ReadInt() int {
+func (c *Console) ReadInt(v validator) int {
 	for {
 		scanner.Scan()
 		text := scanner.Text()
 		n, err := strconv.Atoi(text)
 		if err == nil {
-			return n
+			if v(n) {
+				return n
+			}
 		}
 	}
 }

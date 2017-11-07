@@ -22,18 +22,10 @@ func (h *Healer) OnNightStarted(g *game.Game, e *events.NightStartedEvent) {
 
 	p := g.Player(h.ID())
 
-	done := false
-
-	for !done {
-		fmt.Printf("Healer %v:", h.ID())
-		i := p.ReadInt()
-		if i >= 0 && i < g.Count() {
-			if g.Player(i).Alive() && i != h.target {
-				h.target = i
-				done = true
-			}
-		}
-	}
+	fmt.Printf("Healer %v:", h.ID())
+	h.target = p.ReadInt(func(i int) bool {
+		return Alive(g, i) && NotEqual(g, i, h.target)
+	})
 
 }
 

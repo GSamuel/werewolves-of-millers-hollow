@@ -48,17 +48,12 @@ func (w *Witch) OnPlayerDead(g *game.Game, e *events.PlayerDeadEvent) {
 		return
 	}
 
-	done := false
-	for !done {
-		fmt.Printf("Witch %v:", w.ID())
-		i := p.ReadInt()
-		if i >= 0 && i < g.Count() {
-			if g.Player(i).Alive() {
-				g.Player(i).Die(g, false)
-				done = true
-				w.poison = false
-			}
-		}
-	}
+	fmt.Printf("Witch %v:", w.ID())
+	i := p.ReadInt(func(i int) bool {
+		return Alive(g, i) && NotEqual(g, i, p.ID()) && g.Player(i).Name() != WEREWOLF
+	})
+
+	g.Player(i).Die(g, false)
+	w.poison = false
 
 }

@@ -23,17 +23,11 @@ func (s *Slut) OnNightStarted(g *game.Game, e *events.NightStartedEvent) {
 
 	p := g.Player(s.ID())
 
-	done := false
-	for !done {
-		fmt.Printf("Slut %v:", s.ID())
-		i := p.ReadInt()
-		if i >= 0 && i < g.Count() {
-			if g.Player(i).Alive() && i != s.target && i != s.ID() {
-				s.target = i
-				done = true
-			}
-		}
-	}
+	fmt.Printf("Slut %v:", s.ID())
+	i := p.ReadInt(func(i int) bool {
+		return Alive(g, i) && NotEqual(g, i, p.ID()) && NotEqual(g, i, s.target)
+	})
+	s.target = i
 }
 
 func (s *Slut) OnPlayerDead(g *game.Game, e *events.PlayerDeadEvent) {

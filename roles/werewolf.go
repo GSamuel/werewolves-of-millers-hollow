@@ -21,17 +21,12 @@ func (w *Werewolf) OnWerewolfVote(g *game.Game, e *events.WerewolfVoteEvent) {
 
 	p := g.Player(w.ID())
 
-	done := false
+	fmt.Printf("Werewolf %v:", w.ID())
 
-	for !done {
-		fmt.Printf("Werewolf %v:", w.ID())
-		i := p.ReadInt()
-		if i >= 0 && i < g.Count() {
-			if g.Player(i).Alive() && g.Player(i).Name() != WEREWOLF {
-				e.Vote(i, 1)
-				done = true
-			}
-		}
-	}
+	i := p.ReadInt(func(i int) bool {
+		return Alive(g, i) && NotEqual(g, i, p.ID()) && g.Player(i).Name() != WEREWOLF
+	})
+
+	e.Vote(i, 1)
 
 }

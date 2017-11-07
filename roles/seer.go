@@ -22,15 +22,10 @@ func (s *Seer) OnNightStarted(g *game.Game, e *events.NightStartedEvent) {
 
 	p := g.Player(s.ID())
 
-	done := false
-	for !done {
-		fmt.Printf("Seer %v:", s.ID())
-		i := p.ReadInt()
-		if i >= 0 && i < g.Count() {
-			if g.Player(i).Alive() {
-				fmt.Printf("Player %v is a %v\n", i, g.Player(i).Name())
-				done = true
-			}
-		}
-	}
+	fmt.Printf("Seer %v:", s.ID())
+	i := p.ReadInt(func(i int) bool {
+		return Alive(g, i) && NotEqual(g, i, p.ID())
+	})
+
+	fmt.Printf("Player %v is a %v\n", i, g.Player(i).Name())
 }

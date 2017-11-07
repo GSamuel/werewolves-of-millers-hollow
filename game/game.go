@@ -8,6 +8,7 @@ import (
 type Game struct {
 	*PlayerGroup
 	*EventSystem
+	round int
 }
 
 func (g *Game) Run() {
@@ -39,6 +40,7 @@ func (g *Game) Run() {
 		}
 
 		g.printPlayers()
+		g.round = g.round + 1
 	}
 
 	fmt.Println("The game is over")
@@ -89,6 +91,10 @@ func (g *Game) isOver() bool {
 	return !(stillHumans && stillWerewolves)
 }
 
+func (g *Game) Round() int {
+	return g.round
+}
+
 func (g *Game) printPlayers() {
 	fmt.Println()
 	for i := 0; i < g.Count(); i++ {
@@ -100,5 +106,5 @@ func (g *Game) printPlayers() {
 }
 
 func NewGame(group *PlayerGroup, eventSystem *EventSystem) *Game {
-	return &Game{group, eventSystem}
+	return &Game{group, eventSystem, 0}
 }

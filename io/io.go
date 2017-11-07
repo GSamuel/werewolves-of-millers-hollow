@@ -1,9 +1,9 @@
 package io
 
-import ()
+type validator func(int) bool
 
 type PlayerReader interface {
-	ReadInt() int
+	ReadInt(validator) int
 	ReadBool() bool
 }
 

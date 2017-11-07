@@ -17,33 +17,17 @@ func (c *Cupid) Name() string {
 }
 
 func (c *Cupid) OnGameStarted(g *game.Game, e *events.GameStartedEvent) {
-	done := false
-
 	p := g.Player(c.ID())
 
-	for !done {
-		fmt.Printf("Cupid %v, lover 1:", c.ID())
-		i := p.ReadInt()
-		if i >= 0 && i < g.Count() {
-			if g.Player(i).Alive() {
-				c.lover1 = i
-				done = true
-			}
-		}
-	}
+	fmt.Printf("Cupid %v, lover 1:", c.ID())
+	c.lover1 = p.ReadInt(func(i int) bool {
+		return Alive(g, i)
+	})
 
-	done = false
-
-	for !done {
-		fmt.Printf("Cupid %v, lover 2:", c.ID())
-		i := p.ReadInt()
-		if i >= 0 && i < g.Count() {
-			if g.Player(i).Alive() && i != c.lover1 {
-				c.lover2 = i
-				done = true
-			}
-		}
-	}
+	fmt.Printf("Cupid %v, lover 2:", c.ID())
+	c.lover2 = p.ReadInt(func(i int) bool {
+		return Alive(g, i) && NotEqual(g, i, c.lover1)
+	})
 
 	fmt.Printf("Player %v and %v fell in love\n", c.lover1, c.lover2)
 }
