@@ -18,7 +18,7 @@ func (w *Witch) Name() string {
 
 func (w *Witch) OnPlayerDead(g *game.Game, e *events.PlayerDeadEvent) {
 
-	if !w.Alive() && e.ID() != w.ID() {
+	if !w.Alive() {
 		return
 	}
 
@@ -50,7 +50,7 @@ func (w *Witch) OnPlayerDead(g *game.Game, e *events.PlayerDeadEvent) {
 
 	fmt.Printf("Witch %v:", w.ID())
 	i := p.ReadInt(func(i int) bool {
-		return Alive(g, i) && NotEqual(g, i, p.ID()) && g.Player(i).Name() != WEREWOLF
+		return Alive(g, i) && NotEqual(g, i, p.ID())
 	})
 
 	g.Player(i).Die(g, false)

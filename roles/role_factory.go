@@ -36,7 +36,7 @@ func (r RoleFactory) New(role string, id int) (game.Role, error) {
 	case HUNTER:
 		return &Hunter{base}, nil
 	case HEALER:
-		return &Healer{base, -1}, nil
+		return &Healer{base, -1, -1}, nil
 	case VILLAGE_ELDER:
 		return &VillageElder{base, true}, nil
 	case WITCH:

@@ -24,7 +24,7 @@ func (w *Werewolf) OnWerewolfVote(g *game.Game, e *events.WerewolfVoteEvent) {
 	fmt.Printf("Werewolf %v:", w.ID())
 
 	i := p.ReadInt(func(i int) bool {
-		return Alive(g, i) && NotEqual(g, i, p.ID()) && g.Player(i).Name() != WEREWOLF
+		return Alive(g, i) && NotEqual(g, i, p.ID()) && g.Player(i).Alliance() != game.ALLIANCE_EVIL
 	})
 
 	e.Vote(i, 1)
