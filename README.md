@@ -102,6 +102,6 @@ run `go test ./...` to test all test casese
 ## Trying to come up with a better architecture.
 * deck no internal dependencies
 * events dependency on voting. Is this desirable?
-* game depencies on, deck, events and roles
+* game depencies on, deck, events
 * voting no internal dependencies
-* roles dependencies on events and input. (input dependency is bad)
+* roles dependencies on events, io and game
