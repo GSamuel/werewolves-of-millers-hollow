@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/GSamuel/werewolvesmillershollow/deck"
 	"github.com/GSamuel/werewolvesmillershollow/game"
-	//"github.com/GSamuel/werewolvesmillershollow/input"
 	"github.com/GSamuel/werewolvesmillershollow/roles"
 )
 
@@ -33,6 +32,4 @@ func main() {
 
 	g := game.New(deck, roles.NewFactory())
 	g.Run()
-	//input.New(g.Group)
-	//input.Read()
 }
