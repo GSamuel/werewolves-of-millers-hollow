@@ -2,7 +2,7 @@ package game
 
 import (
 	"fmt"
-	"github.com/GSamuel/werewolvesmillershollow/events"
+	"github.com/GSamuel/werewolves-of-millers-hollow/events"
 )
 
 type Game struct {

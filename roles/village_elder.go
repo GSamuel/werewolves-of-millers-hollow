@@ -1,8 +1,8 @@
 package roles
 
 import (
-	"github.com/GSamuel/werewolvesmillershollow/events"
-	"github.com/GSamuel/werewolvesmillershollow/game"
+	"github.com/GSamuel/werewolves-of-millers-hollow/events"
+	"github.com/GSamuel/werewolves-of-millers-hollow/game"
 )
 
 type VillageElder struct {

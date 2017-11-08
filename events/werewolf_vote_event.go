@@ -1,7 +1,7 @@
 package events
 
 import (
-	"github.com/GSamuel/werewolvesmillershollow/voting"
+	"github.com/GSamuel/werewolves-of-millers-hollow/voting"
 )
 
 type WerewolfVoteEvent struct {

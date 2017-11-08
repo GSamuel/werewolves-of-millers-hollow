@@ -2,7 +2,7 @@ package roles
 
 import (
 	"fmt"
-	"github.com/GSamuel/werewolvesmillershollow/game"
+	"github.com/GSamuel/werewolves-of-millers-hollow/game"
 )
 
 const (
